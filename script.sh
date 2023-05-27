@@ -79,13 +79,13 @@ sudo apt install npm -y >> $script_log_file 2>/dev/null
 echo $green_color"[SUCCESS]";
 echo $green_color"[######################################]";
 
-echo $no_color"INSTALLING CERTBOT (SSL GENERATOR)";
-sudo snap install core  >> $script_log_file 2>/dev/null
-sudo snap refresh core  >> $script_log_file 2>/dev/null
-sudo snap install --classic certbot >> $script_log_file 2>/dev/null
-sudo ln -s /snap/bin/certbot /usr/bin/certbot >> $script_log_file 2>/dev/null
-echo $green_color"[SUCCESS]";
-echo $green_color"[######################################]";
+#echo $no_color"INSTALLING CERTBOT (SSL GENERATOR)";
+#sudo snap install core  >> $script_log_file 2>/dev/null
+#sudo snap refresh core  >> $script_log_file 2>/dev/null
+#sudo snap install --classic certbot >> $script_log_file 2>/dev/null
+#sudo ln -s /snap/bin/certbot /usr/bin/certbot >> $script_log_file 2>/dev/null
+#echo $green_color"[SUCCESS]";
+#echo $green_color"[######################################]";
 
 echo $green_color"[######################################]";
 echo $no_color"INSTALLING COMPOSER";
