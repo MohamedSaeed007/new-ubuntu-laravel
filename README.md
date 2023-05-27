@@ -21,10 +21,10 @@
 
 ```php
 
-wget -q https://raw.githubusercontent.com/peter-tharwat/new-ubuntu-laravel/master/script.sh -O script.sh ; sudo chmod +x script.sh ; ./script.sh -d example.com
+wget -q https://raw.githubusercontent.com/MohamedSaeed007/new-ubuntu-laravel/master/script.sh -O script.sh ; sudo chmod +x script.sh ; ./script.sh -d example.com
 # Replace example.com with your domain
 ```
-![https://raw.githubusercontent.com/peter-tharwat/new-ubuntu-laravel/master/screenshot.png](https://raw.githubusercontent.com/peter-tharwat/new-ubuntu-laravel/master/screenshot.png)
+![https://raw.githubusercontent.com/MohamedSaeed007/new-ubuntu-laravel/master/screenshot.png](https://raw.githubusercontent.com/peter-tharwat/new-ubuntu-laravel/master/screenshot.png)
 
 ### How To Debug LIVE
 
