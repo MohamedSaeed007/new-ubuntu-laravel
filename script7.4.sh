@@ -68,7 +68,7 @@ echo $green_color"[######################################]";
 
 
 echo $no_color"INSTALLING PHP EXTENSIONS";
-sudo apt install php7.4 openssl php7.4-fpm php7.4-common php7.4-curl php7.4-mbstring php7.4-mysql php7.4-xml php7.4-zip php7.4-gd php7.4-cli php7.4-xml php7.4-imagick php7.4-xml php7.4-intl php-mysql -y >> $script_log_file 2>/dev/null
+sudo apt install php7.4 openssl php7.4-fpm php7.4-common php7.4-curl php7.4-mbstring php7.4-mysql php7.4-xml php7.4-zip php7.4-gd php7.4-cli php7.4-imagick php7.4-xml php7.4-intl -y >> $script_log_file 2>/dev/null
 sudo apt-get purge apache -y >> $script_log_file 2>/dev/null
 sudo apt-get purge apache* -y >> $script_log_file 2>/dev/null
 echo $green_color"[SUCCESS]";
