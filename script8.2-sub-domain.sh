@@ -79,16 +79,6 @@ sudo apt install npm -y >> $script_log_file 2>/dev/null
 echo $green_color"[SUCCESS]";
 echo $green_color"[######################################]";
 
-echo $no_color"INSTALLING CERTBOT (SSL GENERATOR)";
-sudo apt-get install snap -y  >> $script_log_file 2>/dev/null
-sudo apt-get install snapd -y  >> $script_log_file 2>/dev/null
-sudo snap install core  >> $script_log_file 2>/dev/null
-sudo snap refresh core  >> $script_log_file 2>/dev/null
-sudo snap install --classic certbot >> $script_log_file 2>/dev/null
-sudo ln -s /snap/bin/certbot /usr/bin/certbot >> $script_log_file 2>/dev/null
-echo $green_color"[SUCCESS]";
-echo $green_color"[######################################]";
-
 echo $green_color"[######################################]";
 echo $no_color"INSTALLING COMPOSER";
 sudo apt-get update  >> $script_log_file 2>/dev/null
@@ -138,68 +128,6 @@ echo $no_color"RESTARTING NGINX";
 sudo pkill -f nginx & wait $! >> $script_log_file 2>/dev/null
 sudo systemctl start nginx >> $script_log_file 2>/dev/null
 sudo service nginx restart >> $script_log_file 2>/dev/null
-echo $green_color"[SUCCESS]";
-echo $green_color"[######################################]";
-
-
-
-
-echo $no_color"GENERATING SSL CERTIFICATE FOR $domain"
-certbot --nginx -d $domain --non-interactive --agree-tos -m admin@$domain >> $script_log_file 2>/dev/null
-rm -rf /etc/nginx/sites-available/$domain >> $script_log_file 2>/dev/null
-sudo touch /etc/nginx/sites-available/$domain >> $script_log_file 2>/dev/null
-
-sudo bash -c "echo 'server {
-    listen 80;
-    #access_log off;
-    root /var/www/html/'$domain'/public;
-    index index.php index.html index.htm index.nginx-debian.html;
-    client_max_body_size 1000M;
-    fastcgi_read_timeout 8600;
-    proxy_cache_valid 200 365d;
-    if (!-d \$request_filename) {
-      rewrite ^/(.+)/$ /\$1 permanent;
-    }
-    if (\$request_uri ~* "\/\/") {
-      rewrite ^/(.*) /\$1 permanent;
-    }
-    location ~ \.(env|log|htaccess)\$ {
-        deny all;
-    }
-    location ~*\.(?:js|jpg|jpeg|gif|png|css|tgz|gz|rar|bz2|doc|pdf|ppt|tar|wav|bmp|rtf|swf|ico|flv|txt|woff|woff2|svg|mp3|jpe?g,eot|ttf|svg)\$ {
-        access_log off;
-        expires 360d;
-        add_header Access-Control-Allow-Origin *;
-        add_header Pragma public;
-        add_header Cache-Control \"public\";
-        add_header Vary Accept-Encoding; 
-        try_files \$uri \$uri/ /index.php?\$query_string;
-    }
-    location / {
-        add_header Access-Control-Allow-Origin *;
-        if (\$request_uri ~* \"^(.*/)index\.php(/?)(.*)\") {
-              return 301 \$1\$3;
-        }
-        if (\$host ~* ^(www)) {
-            rewrite ^/(.*)\$ https://'$domain'/\$1 permanent;
-        }
-        if (\$scheme = http) {
-            return 301 https://'$domain'\$request_uri;
-        }
-        try_files \$uri \$uri/ /index.php?\$query_string;
-    }
-
-    location ~ \.php\$ {
-        include snippets/fastcgi-php.conf;
-        fastcgi_pass unix:/var/run/php/php8.2-fpm.sock;
-    }
-   listen 443 ssl; # managed by Certbot
-   server_name '$domain';
-   ssl_certificate /etc/letsencrypt/live/'$domain'/fullchain.pem; # managed by Certbot
-   ssl_certificate_key /etc/letsencrypt/live/'$domain'/privkey.pem; # managed by Certbot
-   include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
-   ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
-}' > /etc/nginx/sites-available/$domain" >> $script_log_file 2>/dev/null
 echo $green_color"[SUCCESS]";
 echo $green_color"[######################################]";
 
