@@ -13,9 +13,6 @@ do
     esac
 done
 
-
-
-
 echo $no_color"PREPAIRE INSTALLING";
 rm -rf /var/lib/dpkg/lock >> $script_log_file 2>/dev/null
 rm -rf /var/lib/dpkg/lock-frontend >> $script_log_file 2>/dev/null
@@ -68,7 +65,21 @@ echo $green_color"[######################################]";
 
 
 echo $no_color"INSTALLING PHP EXTENSIONS";
-sudo apt install php8.2 openssl php8.2-fpm php8.2-common php8.2-curl php8.2-mbstring php8.2-mysql php8.2-xml php8.2-zip php8.2-gd php8.2-cli php8.2-xml php8.2-imagick php8.2-xml php8.2-intl php-mysql -y >> $script_log_file 2>/dev/null
+sudo apt install php8.2 openssl -y >> $script_log_file 2>/dev/null
+sudo apt install php8.2-fpm -y >> $script_log_file 2>/dev/null
+sudo apt install php8.2-common -y >> $script_log_file 2>/dev/null
+sudo apt install php8.2-mbstring -y >> $script_log_file 2>/dev/null
+sudo apt install php8.2-mysql -y >> $script_log_file 2>/dev/null
+sudo apt install php8.2-xml -y >> $script_log_file 2>/dev/null
+sudo apt install php8.2-gd -y >> $script_log_file 2>/dev/null
+sudo apt install php8.2-cli -y >> $script_log_file 2>/dev/null
+sudo apt install php8.2-xml -y >> $script_log_file 2>/dev/null
+sudo apt install php8.2-imagick -y >> $script_log_file 2>/dev/null
+sudo apt install php8.2-intl -y >> $script_log_file 2>/dev/null
+sudo apt install php8.2-xml -y >> $script_log_file 2>/dev/null
+sudo apt install php8.2-zip -y >> $script_log_file 2>/dev/null
+sudo apt install php8.2-curl -y >> $script_log_file 2>/dev/null
+sudo apt install php8.2-mysql -y >> $script_log_file 2>/dev/null
 sudo apt-get purge apache -y >> $script_log_file 2>/dev/null
 sudo apt-get purge apache* -y >> $script_log_file 2>/dev/null
 echo $green_color"[SUCCESS]";
@@ -123,11 +134,17 @@ sudo bash -c "echo  '<h1 style=\"color:#0194fe\">Welcome</h1><h4 style=\"color:#
 echo $green_color"[SUCCESS]";
 echo $green_color"[######################################]";
 
-
 echo $no_color"RESTARTING NGINX";
 sudo pkill -f nginx & wait $! >> $script_log_file 2>/dev/null
 sudo systemctl start nginx >> $script_log_file 2>/dev/null
 sudo service nginx restart >> $script_log_file 2>/dev/null
+echo $green_color"[SUCCESS]";
+echo $green_color"[######################################]";
+
+echo $no_color"GENERATING SSL CERTIFICATE FOR $domain"
+sudo apt update >> $script_log_file 2>/dev/null
+sudo apt install certbot python3-certbot-nginx >> $script_log_file 2>/dev/null
+sudo certbot --nginx -d $domain --non-interactive --agree-tos -m admin@admin.com >> $script_log_file 2>/dev/null
 echo $green_color"[SUCCESS]";
 echo $green_color"[######################################]";
 
