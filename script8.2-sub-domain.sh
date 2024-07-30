@@ -141,12 +141,12 @@ sudo service nginx restart >> $script_log_file 2>/dev/null
 echo $green_color"[SUCCESS]";
 echo $green_color"[######################################]";
 
-# echo $no_color"GENERATING SSL CERTIFICATE FOR $domain"
-# sudo apt update >> $script_log_file 2>/dev/null
-# sudo apt install certbot python3-certbot-nginx >> $script_log_file 2>/dev/null
-# sudo certbot --nginx -d $domain --non-interactive --agree-tos -m admin@admin.com >> $script_log_file 2>/dev/null
-# echo $green_color"[SUCCESS]";
-# echo $green_color"[######################################]";
+echo $no_color"GENERATING SSL CERTIFICATE FOR $domain"
+sudo apt update >> $script_log_file 2>/dev/null
+sudo apt install certbot python3-certbot-nginx >> $script_log_file 2>/dev/null
+sudo certbot --nginx -d $domain --non-interactive --agree-tos -m admin@admin.com >> $script_log_file 2>/dev/null
+echo $green_color"[SUCCESS]";
+echo $green_color"[######################################]";
 
 echo $no_color"RESTARTING NGINX";
 sudo service nginx restart >> $script_log_file 2>/dev/null
